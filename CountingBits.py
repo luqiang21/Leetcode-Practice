@@ -31,7 +31,7 @@ class Solution(object):
         """
         List = [0] * (num + 1)
         for i in range(1, num + 1):
-            List[i] = List[i >> 1] + i & 1
+            List[i] = List[i >> 1] + (i & 1)
 
         return List
 
