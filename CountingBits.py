@@ -22,16 +22,21 @@ class Solution(object):
         :rtype: List[int]
         """
         List = []
+        computed = {}
         for i in range(num+1):
             n_one = 0
             while i > 0:
-                if i % 2 == 1:
-                    n_one += 1
-                i /= 2
-
+                if i in computed:
+                    n_one += computed[i]
+                    i = 0
+                else:
+                    if i % 2 == 1:
+                        n_one += 1
+                    i /= 2
+            computed[i] = n_one
             List.append(n_one)
 
-        return List
+        return List    
 
 input = 2
 cB = Solution()
