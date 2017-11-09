@@ -50,6 +50,6 @@ class Solution:
 
 head, head.next, head.next.next = ListNode(1), ListNode(2), ListNode(2)
 head.next.next.next, head.next.next.next.next = ListNode(3), ListNode(4)
-head.next.next.next.next.next, head.next.next.next.next.next.next = ListNode(4), ListNode(5)
+head.next.next.next.next.next, head.next.next.next.next.next.next = ListNode(5), ListNode(5)
 print 'Before', head
 print 'After remove', Solution().deleteDuplicates(head)
