@@ -39,7 +39,7 @@ sol = Solution()
 nums = [1, 4, 3, 2]
 print(nums)
 print(sol.arrayPairSum(nums))
-print
+print()
 
 nums = [10, 40, 30, 2, 1, 7]
 print(nums)
