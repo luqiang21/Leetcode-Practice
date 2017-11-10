@@ -1,7 +1,6 @@
 '''3 ways to solve Fibonacci problem'''
 N = 20
 import sys
-N = int(sys.argv[1])
 
 import time
 def timing(f):
@@ -12,6 +11,8 @@ def timing(f):
         print '%s function took %0.3f ms' % (f.func_name, (time2-time1)*1000.0)
         return ret
     return wrap
+
+N = int(sys.argv[1])
 
 # Approach 1: Recursion
 # F(n) = F(n-1) + F(n-2), F(0) = 0, F(1) = 1
