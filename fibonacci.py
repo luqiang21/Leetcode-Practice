@@ -44,10 +44,13 @@ print fib2(N)
 # Approach 3: Store the last two numbers
 @timing
 def fib3(n):
+    if n == 1:return 1
     n1, n2, temp = 0, 1, 0
     for i in xrange(2, n+1):
         temp = n1 + n2
         n1 = n2
         n2 = temp
     return temp
+print fib3(1)
+print fib3(2)
 print fib3(N)
