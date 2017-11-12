@@ -76,7 +76,7 @@ class Solution(object):
     (j-i) is the start of current period, (j-i) + cycle is the start of next period.
     '''
     @timing
-    def convert(self, s, numRows):
+    def convert3(self, s, numRows):
         if numRows <= 1:
             return s
         cycle, length, res = 2 * numRows - 2, len(s), ""
@@ -90,9 +90,28 @@ class Solution(object):
                     res += s[secondJ]
         return res
 
+
+    # another great idea based on cycle
+    @timing
+    def convert(self, s, numRows):
+        if numRows <= 1: return s
+        rows = [''] * numRows
+        cycle = numRows * 2 - 2
+
+        for i, char in enumerate(s):
+            # correspond to secondJ
+            if i % cycle >= numRows:
+                rows[cycle - i%cycle] += char
+            else:
+                rows[i%cycle] += char
+        return ''.join(rows)
+
+
 s = "PAYPALISHIRING"
 print Solution().convert1(s, 3) #"PAHNAPLSIIGYIR"
 
 print Solution().convert2(s, 3) #"PAHNAPLSIIGYIR"
+
+print Solution().convert3(s, 3) #"PAHNAPLSIIGYIR"
 
 print Solution().convert(s, 3) #"PAHNAPLSIIGYIR"
