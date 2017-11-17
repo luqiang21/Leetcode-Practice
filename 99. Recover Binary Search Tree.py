@@ -5,6 +5,7 @@ Recover the tree without changing its structure.
 Note:
 A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
 '''
+from tools import timing
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -18,6 +19,8 @@ class Solution:
             self.inorder(root.left, listv, listp)
             listv.append(root.val); listp.append(root)
             self.inorder(root.right, listv, listp)
+
+    @timing
     def recoverTree(self, root):
         """
         :type root: TreeNode
@@ -30,10 +33,44 @@ class Solution:
         for i in range(len(listv)):
             listp[i].val = listv[i]
 
-a = TreeNode(1)
-a.left = TreeNode(0)
+
+
+class Solution2:
+    # @param root, a TreeNode
+    # @return a tree node
+    def FindTwoNodes(self, root):
+        if root:
+            self.FindTwoNodes(root.left)
+
+            if self.prev and self.prev.val > root.val:
+                if self.n1 == None:
+                    self.n1 = self.prev
+                self.n2 = root
+            self.prev = root
+            self.FindTwoNodes(root.right)
+
+    @timing
+    def recoverTree(self, root):
+        self.n1 = self.n2 = None
+        self.prev = None
+        self.FindTwoNodes(root)
+        self.n1.val, self.n2.val = self.n2.val, self.n1.val
+        return root
+
+
+a = TreeNode(0)
+a.left = TreeNode(1)
 sol = Solution()
 
 print(a.left.val, a.val)
 sol.recoverTree(a)
+print(a.left.val, a.val)
+print()
+
+a = TreeNode(0)
+a.left = TreeNode(1)
+sol2 = Solution2()
+
+print(a.left.val, a.val)
+sol2.recoverTree(a)
 print(a.left.val, a.val)
