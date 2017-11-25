@@ -1,4 +1,4 @@
-# this problem is similar to 127. Word Ladder
+# this problem is similar to 127. Word Ladder, http://www.cnblogs.com/grandyang/p/7653006.html
 '''
 A gene string can be represented by an 8-character long string, with choices from "A", "C", "G", "T".
 
@@ -41,6 +41,21 @@ bank: ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
 
 return: 3
 '''
+
+
+'''
+[Analysis]
+The gene strings can construct a graph with each node is an gene and each edge
+is a valid mutation. Then the problem becomes find a path from start node to the end node.
+This can be done with BFS and time complexity is O(N).
+
+The construction of the graph needs to compare every two nodes, which makes the
+time complexity O(N^2). Since the gene string is an 8-character string with only 4 letters,
+ instead of constructing a graph, we can use all valid mutation of a given string when
+ probing the next possible gene. There only 31(4x8-1) possibilities. Therefore,
+the overall time complexity can be still O(N).
+'''
+
 from tools import timing
 class Solution(object):
     @timing
@@ -90,6 +105,29 @@ class Solution2(object):
                     queue.append([gene, cur, steps+1])
         return -1
 
+import collections
+def toNumber(gene):
+    table = {v:i for i, v in enumerate('ATGC')}
+    return sum([table[letter] * 1 << (2 * i) for i, letter in enumerate(gene)])
+
+@timing
+def findMutationDistance(start, end, bank):
+    bank = set(map(toNumber, bank))
+    start = toNumber(start)
+    end = toNumber(end)
+    queue = [(start, 0)]
+    visited = set([start])
+    while queue:
+        gene, steps = queue.pop(0)
+        if gene == end:
+            return steps
+        for x in range(8):
+            for y in range(4):
+                next = gene ^ (y << (x * 2))
+                if next in bank and next not in visited:
+                    visited.add(next)
+                    queue.append((next, steps+1))
+    return -1
 
 start = "AACCGGTT"
 end =   "AACCGGTA"
@@ -97,16 +135,18 @@ bank = ["AACCGGTA"]
 
 print(Solution().minMutation(start, end, bank))
 print(Solution2().minMutation(start, end, bank))
-
+print(findMutationDistance(start, end, bank))
 
 start = "AACCGGTT"
 end =   "AAACGGTA"
 bank = ["AACCGGTA", "AACCGCTA", "AAACGGTA"]
 print(Solution().minMutation(start, end, bank))
 print(Solution2().minMutation(start, end, bank))
+print(findMutationDistance(start, end, bank))
 
 start = "AAAAACCC"
 end =   "AACCCCCC"
 bank = ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
 print(Solution().minMutation(start, end, bank))
 print(Solution2().minMutation(start, end, bank))
+print(findMutationDistance(start, end, bank))
