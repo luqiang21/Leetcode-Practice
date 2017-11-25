@@ -36,5 +36,46 @@ def selectionSort(array):
             array[i], array[minIndex] = array[minIndex], array[i]
     return array
 
+
+print("Selection sort")
 print(selectionSort([4, 2, 1, 3]))
 print(selectionSort([4, 3, 2, 1, 0, -1, -99]))
+
+"""
+Insertion sort
+
+Insertion sort repeatedly inserts an element in the sorted
+subarray to its left.
+
+Call insert to insert the element that starts at index 1 into the sorted
+    subarray in index 0.
+Call insert to insert the element that starts at index 2 into the sorted
+    subarray in indices 0 through 1.
+Call insert to insert the element that starts at index 3 into the sorted
+    subarray in indices 0 through 2.
+Finally, call insert to insert the element that starts at index n-1 into
+    the sorted subarray in indices 0 through n−2.
+"""
+
+
+def insert(array, rightIndex, value):
+    """ insert helper function"""
+    j = rightIndex
+    while j >= 0 and array[j] > value:
+        array[j + 1] = array[j]
+        j = j - 1
+    array[j + 1] = value
+
+
+def insertionSort(array):
+    """insertioin sort"""
+    print("original array is", array)
+    # Write this method
+    for i in range(0, len(array)-1):
+        insert(array, i, array[i+1])
+
+    return array
+
+
+print(insertionSort([4, 2, 1, 3]))
+print(insertionSort([4, 3, 2, 1, 0, -1, -99]))

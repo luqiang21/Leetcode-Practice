@@ -13,3 +13,9 @@ Below is the pseudocode for binary search, modified for searching in an array. T
 5. If the guess was too low, that is, array[guess] < target, then set min = guess + 1.
 6. Otherwise, the guess was too high. Set max = guess - 1.
 7. Go back to step two.
+
+## Selection sort
+sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning.
+
+## Insertion Sort
+repeatedly inserts an element in the sorted subarray to its left.
