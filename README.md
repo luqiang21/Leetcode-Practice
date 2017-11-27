@@ -29,3 +29,12 @@ Worst-case performance	О(n^2) comparisons, swaps
 Best-case performance	O(n) comparisons, O(1) swaps
 Average performance	О(n^2) comparisons, swaps
 Worst-case space complexity	О(n) total, O(1) auxiliary
+
+## Merge sort
+Divide the unsorted list into n sublists, each containing 1 element (a list of 1 element is considered sorted).
+Repeatedly merge sublists to produce new sorted sublists until there is only 1 sublist remaining. This will be the sorted list.
+
+Worst-case performance	O(n log n)
+Best-case performance	O(n log n) typical, O(n) natural variant
+Average performance	O(n log n)
+Worst-case space complexity	О(n) total, O(n) auxiliary
