@@ -79,3 +79,69 @@ def insertionSort(array):
 
 print(insertionSort([4, 2, 1, 3]))
 print(insertionSort([4, 3, 2, 1, 0, -1, -99]))
+
+
+"""
+Merge sort
+"""
+# Takes in an array that has two sorted subarrays,
+#  from [p..q] and [q+1..r], and merges the array
+
+
+def merge(array, p, q, r):
+    """ merge """
+    print("merge called", p, q, r, '\n', array)
+    lh = q - p + 1
+    rh = r - q
+
+    L = [0] * (lh)
+    R = [0] * (rh)
+
+    for i in range(0, lh):
+        L[i] = array[p + i]
+    for j in range(0, rh):
+        R[j] = array[q + 1 + j]
+
+    i, j, k = 0, 0, p
+
+    while i < lh and j < rh:
+        if L[i] <= R[j]:
+            array[k] = L[i]
+            i += 1
+        else:
+            array[k] = R[j]
+            j += 1
+        k += 1
+
+    # either L or R is exhausted, above while loop exits.
+    while i < lh:
+        array[k] = L[i]
+        i += 1
+        k += 1
+
+    while j < rh:
+        array[k] = R[j]
+        j += 1
+        k += 1
+
+
+def mergeSort(array, p, r):
+    """ Takes in an array and recursively merge sorts it"""
+    if p < r:
+        print("mergeSort called", p, r, '\n', array)
+        q = (p+r) // 2
+        mergeSort(array, p, q)
+        mergeSort(array, q+1, r)
+        merge(array, p, q, r)
+
+
+array = [6, 3, 8, 2, 7, 1]
+print('before sorting,', array)
+mergeSort(array, 0, len(array)-1)
+print('after sorting,', array)
+
+
+array = [4, 2, 1, 3]
+print('before sorting,', array)
+mergeSort(array, 0, len(array)-1)
+print('after sorting,', array)

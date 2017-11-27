@@ -17,5 +17,15 @@ Below is the pseudocode for binary search, modified for searching in an array. T
 ## Selection sort
 sorts an array by repeatedly finding the minimum element (considering ascending order) from unsorted part and putting it at the beginning.
 
+Worst-case performance	О(n^2) comparisons, О(n) swaps
+Best-case performance	О(n^2) comparisons, О(n) swaps
+Average performance	О(n^2) comparisons, О(n) swaps
+Worst-case space complexity	О(n) total, O(1) auxiliary
+
 ## Insertion Sort
 repeatedly inserts an element in the sorted subarray to its left.
+
+Worst-case performance	О(n^2) comparisons, swaps
+Best-case performance	O(n) comparisons, O(1) swaps
+Average performance	О(n^2) comparisons, swaps
+Worst-case space complexity	О(n) total, O(1) auxiliary
