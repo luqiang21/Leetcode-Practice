@@ -15,7 +15,7 @@ next-smallest element and swaps it into place.
 """
 
 
-def indexOfMinimum(array, startIndex):
+def index_of_minimum(array, startIndex):
     '''find the minimum index of subarray array[startIndex:]'''
     minValue = array[startIndex]
     minIndex = startIndex
@@ -27,19 +27,19 @@ def indexOfMinimum(array, startIndex):
     return minIndex
 
 
-def selectionSort(array):
+def selection_sort(array):
     '''selection sort'''
     print('original array is', array)
     for i in range(len(array)):
-        minIndex = indexOfMinimum(array, i)
+        minIndex = index_of_minimum(array, i)
         if i != minIndex:
             array[i], array[minIndex] = array[minIndex], array[i]
     return array
 
 
 print("Selection sort")
-print(selectionSort([4, 2, 1, 3]))
-print(selectionSort([4, 3, 2, 1, 0, -1, -99]))
+print(selection_sort([4, 2, 1, 3]))
+print(selection_sort([4, 3, 2, 1, 0, -1, -99]))
 
 """
 Insertion sort
@@ -67,7 +67,7 @@ def insert(array, rightIndex, value):
     array[j + 1] = value
 
 
-def insertionSort(array):
+def insertion_sort(array):
     """insertioin sort"""
     print("original array is", array)
     # Write this method
@@ -77,8 +77,8 @@ def insertionSort(array):
     return array
 
 
-print(insertionSort([4, 2, 1, 3]))
-print(insertionSort([4, 3, 2, 1, 0, -1, -99]))
+print(insertion_sort([4, 2, 1, 3]))
+print(insertion_sort([4, 3, 2, 1, 0, -1, -99]))
 
 
 """
@@ -125,23 +125,66 @@ def merge(array, p, q, r):
         k += 1
 
 
-def mergeSort(array, p, r):
+def merge_sort(array, p, r):
     """ Takes in an array and recursively merge sorts it"""
     if p < r:
-        print("mergeSort called", p, r, '\n', array)
+        print("merge_sort called", p, r, '\n', array)
         q = (p+r) // 2
-        mergeSort(array, p, q)
-        mergeSort(array, q+1, r)
+        merge_sort(array, p, q)
+        merge_sort(array, q+1, r)
         merge(array, p, q, r)
+
+
+def merge_sort2(arrayList):
+    """ Not using helper function, more clear """
+    if len(arrayList) > 1:
+        mid = len(arrayList) // 2
+        leftHalf = arrayList[:mid]
+        rightHalf = arrayList[mid:]
+
+        merge_sort2(leftHalf)
+        merge_sort2(rightHalf)
+
+        i, j, k = 0, 0, 0
+        while i < len(leftHalf) and j < len(rightHalf):
+            if leftHalf[i] <= rightHalf[j]:
+                arrayList[k] = leftHalf[i]
+                i += 1
+            else:
+                arrayList[k] = rightHalf[j]
+                j += 1
+            k += 1
+
+        while i < len(leftHalf):
+            arrayList[k] = leftHalf[i]
+            i += 1
+            k += 1
+
+        while j < len(rightHalf):
+            arrayList[k] = rightHalf[j]
+            j += 1
+            k += 1
 
 
 array = [6, 3, 8, 2, 7, 1]
 print('before sorting,', array)
-mergeSort(array, 0, len(array)-1)
+merge_sort(array, 0, len(array)-1)
 print('after sorting,', array)
 
 
 array = [4, 2, 1, 3]
 print('before sorting,', array)
-mergeSort(array, 0, len(array)-1)
+merge_sort(array, 0, len(array)-1)
+print('after sorting,', array)
+
+
+array = [6, 3, 8, 2, 7, 1]
+print('before sorting,', array)
+merge_sort2(array)
+print('after sorting,', array)
+
+
+array = [4, 2, 1, 3]
+print('before sorting,', array)
+merge_sort2(array)
 print('after sorting,', array)
