@@ -77,6 +77,7 @@ def insertion_sort(array):
     return array
 
 
+print("Insertion sort.")
 print(insertion_sort([4, 2, 1, 3]))
 print(insertion_sort([4, 3, 2, 1, 0, -1, -99]))
 
@@ -166,6 +167,7 @@ def merge_sort2(arrayList):
             k += 1
 
 
+print("Merge Sort.")
 array = [6, 3, 8, 2, 7, 1]
 print('before sorting,', array)
 merge_sort(array, 0, len(array)-1)
@@ -188,3 +190,45 @@ array = [4, 2, 1, 3]
 print('before sorting,', array)
 merge_sort2(array)
 print('after sorting,', array)
+
+
+"""
+Quick sort
+"""
+
+
+def partition(array, low, high):
+    """ partition """
+    # select the last element as pivot
+    pivot = array[high]
+    i = low - 1
+
+    for j in range(low, high):
+        if array[j] <= pivot:
+            i += 1
+            array[i], array[j] = array[j], array[i]
+    array[i+1], array[high] = array[high], array[i+1]
+    return i+1
+
+
+def quick_sort(array, low, high):
+    if low < high:
+        # pi is partitioning index, arr[pi] is now
+        # at right place
+        pi = partition(array, low, high)
+
+        quick_sort(array, low, pi - 1)
+        quick_sort(array, pi + 1, high)
+
+
+print()
+array1 = [6, 3, 8, 2, 7, 1]
+print('before sorting,', array1)
+quick_sort(array1, 0, len(array1)-1)
+print('after sorting,', array1)
+
+
+array2 = [4, 2, 1, 3]
+print('before sorting,', array2)
+quick_sort(array2, 0, len(array2)-1)
+print('after sorting,', array2)
