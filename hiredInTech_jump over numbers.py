@@ -25,3 +25,27 @@ the last number in the list and has the value 1. From there you jump 1 position
 to the right and must stop. This is a total of 4 jumps.
 
 """
+from tools import timing
+@timing
+def jump_over_numbers(list):
+    # Write your solution here
+
+    i = 0
+    jumps = 0
+    while i < len(list):
+        steps = list[i]
+        if steps == 0:
+            return -1
+
+        i += steps
+        jumps += 1
+
+    return jumps
+
+lis = [3, 4, 1, 2, 5, 6, 9, 0, 1, 2, 3, 1]
+ans = 4
+assert jump_over_numbers(lis) == ans
+lis = [3, 4, 1, 0, 3, 2]
+ans = -1
+assert jump_over_numbers(lis) == ans
+print('all tests passed.')
