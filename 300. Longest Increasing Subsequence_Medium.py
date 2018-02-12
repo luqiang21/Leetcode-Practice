@@ -35,6 +35,7 @@ class Solution:
                         up[i] = up[j] + 1
         return max(up)
 
+    # modified based on lengthOfLIS1
     @timing
     def longest_increasing_subsequence1(self, nums):
         """
@@ -88,6 +89,7 @@ class Solution:
 
         return res
 
+    # modified based on lengthOfLIS
     @timing
     def longest_increasing_subsequence(self, nums):
         """
@@ -123,6 +125,33 @@ class Solution:
               res -= 1
         return lis
 
+
+    # code from hiredintech.com
+    def longest_increasing_subsequence2(self, nums):
+        # pre holds the index of the previous number
+        up = pre = [None for _ in nums]
+        up[0] = 1
+        pre[0] = -1
+        best_index = 1
+
+        for i in range(1, len(nums)):
+            up[i] = 1
+            pre[i] = -1
+            for j in range(i):
+                if nums[i] > nums[j] and up[i] < up[j] + 1:
+                    up[i] = up[j] + 1
+                    pre[i] = j
+
+                    if up[best_index] < up[i]:
+                        best_index = i
+        answer = []
+        index = best_index
+        while index != -1:
+            answer.append(nums[index])
+            index = pre[index]
+
+        return list(reversed(answer))
+
 sol = Solution()
 nums = [10, 9, 2, 5, 3, 7, 101, 18]
 assert sol.lengthOfLIS1(nums) == 4, "incorrect" + str(sol.lengthOfLIS1(nums))
@@ -131,8 +160,12 @@ print('original list:', nums)
 
 print(sol.longest_increasing_subsequence1(nums))
 print(sol.longest_increasing_subsequence(nums))
+print(sol.longest_increasing_subsequence2(nums))
+
 nums = [16, 3, 5, 19, 10, 14, 12, 0, 15]
 print('\noriginal list:', nums)
 print(sol.longest_increasing_subsequence1(nums))
 print(sol.longest_increasing_subsequence(nums))
+print(sol.longest_increasing_subsequence2(nums))
+
 print('All tests passed.')
