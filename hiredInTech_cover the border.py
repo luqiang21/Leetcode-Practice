@@ -65,7 +65,34 @@ def cover_the_border1(l, radars):
       coverage += right - left
   return coverage
 
+# same idea with mine, better format
+@timing
+def cover_the_border(l, radars):
+  # Example arguments:
+
+  # l = 100
+
+  # radars = [ [5, 10], [3, 25], [46, 99], [39, 40], [45, 50] ]
+
+  prev = None
+  radars.sort()
+  ans = 0
+  for radar in radars:
+      if not prev:
+          prev = radar[:]
+      elif radar[0] > prev[1]:
+          # separate from previous ranges
+
+          ans += prev[1] - prev[0]
+          prev = radar[:]
+      else:
+          prev[1] = max(prev[1], radar[1])
+  if prev:
+      ans += prev[1] - prev[0]
+  return ans
+
 l = 100
 radars = [[5, 10], [3, 25], [46, 99], [39, 40], [45, 50]]
 
 assert cover_the_border1(l, radars) == 77
+assert cover_the_border(l, radars) == 77
