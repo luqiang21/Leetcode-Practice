@@ -34,14 +34,14 @@ def count_brute_force(T, P):
     return count
 
 @timing
-def count1(T, P):
+def count1(T, P, d):
     # use Rabin-Karp, Processing time: theta(m), matching time: O((n-m+1)m),
     # based on certain assumptions, average-case running time is better
     count = 0
 
     n = len(T)
     m = len(P)
-    d = 26
+    # d = 26
     q = 101
     h = d**(m-1) % q
     p = 0
@@ -76,11 +76,11 @@ def count3(T, P):
 T = 'babalabalabalatheend'
 P = 'alabala'
 assert count_brute_force(T, P) == 2
-assert count1(T, P) == 2
+assert count1(T, P, 26) == 2
 T = "xxxxx"
 P = "xx"
 assert count_brute_force(T, P) == 4
-assert count1(T, P) == 4
+assert count1(T, P, 26) == 4
 T, P = "3141592653589793", "26"
 assert count_brute_force(T, P) == 1
-assert count1(T, P) == 1
+assert count1(T, P, 10) == 1
