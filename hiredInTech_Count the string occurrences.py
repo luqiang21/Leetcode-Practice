@@ -63,10 +63,80 @@ def count1(T, P, d):
     return count
 
 
+'''Finite automat'''
+# https://www.geeksforgeeks.org/searching-for-patterns-set-5-finite-automata/
+NO_OF_CHARS = 256
+
+def getNextState(pat, M, state, x):
+    '''
+    calculate the next state
+    '''
+
+    # If the character c is same as next character
+      # in pattern, then simply increment state
+
+    if state < M and x == ord(pat[state]):
+        return state+1
+
+    i = 0
+    # ns stores the result which is next state
+
+    # ns finally contains the longest prefix
+     # which is also suffix in "pat[0..state-1]c"
+
+     # Start from the largest possible value and
+      # stop when you find a prefix which is also suffix
+    for ns in range(state,0,-1):
+        if ord(pat[ns-1]) == x:
+            while(i<ns-1):
+                if pat[i] != pat[state-ns+1+i]:
+                    break
+                i+=1
+            if i == ns-1:
+                return ns
+    return 0
+
+def computeTF(pat, M):
+    '''
+    This function builds the TF table which
+    represents Finite Automata for a given pattern
+    '''
+    global NO_OF_CHARS
+
+    TF = [[0 for i in range(NO_OF_CHARS)]\
+          for _ in range(M+1)]
+
+    for state in range(M+1):
+        for x in range(NO_OF_CHARS):
+            z = getNextState(pat, M, state, x)
+            TF[state][x] = z
+
+    return TF
 @timing
-def count2(T, P):
-    # use finite automata
-    pass
+def count2(pat, txt):
+    # Python program for Finite Automata
+    # Pattern searching Algorithm
+
+    '''
+    Prints all occurrences of pat in txt
+    '''
+    global NO_OF_CHARS
+    M = len(pat)
+    N = len(txt)
+    TF = computeTF(pat, M)
+
+    count = 0
+    # Process txt over FA.
+    state=0
+    for i in range(N):
+        state = TF[state][ord(txt[i])]
+        if state == M:
+            count += 1
+            print("     Pattern found at index: {}".\
+                   format(i-M+1))
+    return count
+
+
 
 @timing
 def count3(T, P):
@@ -77,10 +147,16 @@ T = 'babalabalabalatheend'
 P = 'alabala'
 assert count_brute_force(T, P) == 2
 assert count1(T, P, 26) == 2
+assert count2(P, T) == 2, count2(T, P)
+print()
 T = "xxxxx"
 P = "xx"
 assert count_brute_force(T, P) == 4
 assert count1(T, P, 26) == 4
+assert count2(P, T) == 4
+
+print()
 T, P = "3141592653589793", "26"
 assert count_brute_force(T, P) == 1
 assert count1(T, P, 10) == 1
+assert count2(P, T) == 1
