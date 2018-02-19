@@ -88,10 +88,10 @@ def getNextState(pat, M, state, x):
       # stop when you find a prefix which is also suffix
     for ns in range(state,0,-1):
         if ord(pat[ns-1]) == x:
-            while(i<ns-1):
+            while(i < ns-1):
                 if pat[i] != pat[state-ns+1+i]:
                     break
-                i+=1
+                i += 1
             if i == ns-1:
                 return ns
     return 0
