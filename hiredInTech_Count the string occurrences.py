@@ -136,27 +136,82 @@ def count2(pat, txt):
                    format(i-M+1))
     return count
 
+# KMPSearch
+def computeLPS(P, m, lps):
+    # lps[0] is 0
+    i = 1
+    l = 0 # length of previous longest prefix suffix
+    # update lps[1:m-1]
+    while i < m:
+        if P[i] == P[l]:
+            l += 1
+            lps[i] = l
+            i += 1
+        else:
+            if l != 0:
+                l = lps[l-1]
+                # we are not updating i here
+            else:
+                lps[i] = 0
+                i += 1
 
 
 @timing
-def count3(T, P):
+def KMPSearch(P, T):
     # use KMP
-    pass
+    n = len(T)
+    m = len(P)
+
+    # create lps[] that will hold the longest prefix suffix
+    # values for pattern
+    lps = [0]*m
+    j = 0 # index for P[]
+
+    computeLPS(P, m, lps)
+    # print(lps)
+    cnt = 0
+    i = 0
+    while i < n:
+        if T[i] == P[j]:
+            i += 1
+            j += 1
+
+        if j == m:
+            print("pattern found at shift", i-j)
+            cnt += 1
+            j = lps[j-1]
+
+        # mismatch after j matches
+        elif i < n and T[i] != P[j]:
+            if j > 0:
+                j = lps[j-1]
+            else:
+                i += 1
+    return cnt
+
+txt = "ABABDABACDABABCABAB"
+pat = "ABABCABAB"
+print(KMPSearch(pat, txt))
+
 
 T = 'babalabalabalatheend'
 P = 'alabala'
 assert count_brute_force(T, P) == 2
 assert count1(T, P, 26) == 2
 assert count2(P, T) == 2, count2(T, P)
+assert KMPSearch(P, T) == 2, KMPSearch(P, T)
 print()
 T = "xxxxx"
 P = "xx"
 assert count_brute_force(T, P) == 4
 assert count1(T, P, 26) == 4
 assert count2(P, T) == 4
+assert KMPSearch(P, T) == 4, KMPSearch(P, T)
+
 
 print()
 T, P = "3141592653589793", "26"
 assert count_brute_force(T, P) == 1
 assert count1(T, P, 10) == 1
 assert count2(P, T) == 1
+assert KMPSearch(P, T) == 1, KMPSearch(P, T)
