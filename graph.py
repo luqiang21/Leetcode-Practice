@@ -86,3 +86,36 @@ def BFS(graph, start):
             explored.append(node)
     return explored
 print(BFS(graph, 'A'))
+
+def BFS_shortest_path(graph, start, goal):
+    '''
+    breadth first search
+    Args:
+        graph: dictionay stores adjacent nodes
+        start: the node to start
+        goal: the goal node
+    Returns:
+        the shortest path
+    '''
+    from queue import deque
+    queue = deque() # stores path instead of node
+    queue.append([start])
+    explored = []
+
+    while queue:
+        path = queue.popleft()
+        node = path[-1]
+
+        if node not in explored:
+            neighbors = graph[node]
+            for neighbor in neighbors:
+                new_path = path[:]
+                new_path.append(neighbor)
+                queue.append(new_path)
+
+                if neighbor == goal:
+                    return new_path
+            explored.append(node)
+    return "sorry, no path found"
+
+print(BFS_shortest_path(graph, 'G', 'D') )
