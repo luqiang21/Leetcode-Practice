@@ -85,6 +85,7 @@ def BFS(graph, start):
                 queue.append(neighbor)
             explored.append(node)
     return explored
+    
 print(BFS(graph, 'A'))
 
 def BFS_shortest_path(graph, start, goal):
