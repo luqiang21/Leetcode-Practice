@@ -54,3 +54,35 @@ pprint.pprint([[i, neighbors] for i, neighbors in enumerate(graph)])
 print('\nafter bfs\nnode: (srcDistance, predecessor)')
 pprint.pprint([[i, (node.srcDistance, node.predecessor)] for i, node in
                enumerate(doBFS(graph, 3))])
+# TODO complete backtracking to show the visited sequence
+
+graph = {'A': ['B', 'C', 'E'],
+         'B': ['A','D', 'E'],
+         'C': ['A', 'F', 'G'],
+         'D': ['B'],
+         'E': ['A', 'B','D'],
+         'F': ['C'],
+         'G': ['C']}
+def BFS(graph, start):
+    '''
+    breadth first search
+    Args:
+        graph: dictionay stores adjacent nodes
+        start: the node to start BFS traversal
+    Returns:
+        BFS sequence of nodes
+    '''
+    from queue import deque
+    queue = deque()
+    queue.append(start)
+    explored = []
+
+    while queue:
+        node = queue.popleft()
+        if node not in explored:
+            neighbors = graph[node]
+            for neighbor in neighbors:
+                queue.append(neighbor)
+            explored.append(node)
+    return explored
+print(BFS(graph, 'A'))
