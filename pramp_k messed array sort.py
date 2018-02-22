@@ -64,15 +64,37 @@ def sort_k_messed_array2(arr, k):
     arr[j+1] = x
   return arr
 
+import heapq
+@timing
+def sort_k_messed_array(arr, k):
+    # Create a Min Heap of first (k+1) elements from input array
+    n = len(arr)
+    h = arr[:k+1]
+    heapq.heapify(h)
+
+    for i in range(k+1, n):
+        # extract the top element from the min-heap and
+        # assign it to the next available array index
+        arr[i - (k+1)] = heapq.heappop(h)
+
+        # push the next array element into the min-heap
+        heapq.heappush(h, arr[i])
+    for i in range(k+1):
+        arr[n - (k+1) + i] = heapq.heappop(h)
+    return arr
 arr = [1, 4, 5, 2, 3, 7, 8, 6, 10, 9]
 k = 2
 ans = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 assert sort_k_messed_array1(arr, k) == ans
 assert sort_k_messed_array2(arr, k) == ans
+assert sort_k_messed_array(arr, k) == ans
 
 
-arr = [6,1,4,11,2,0,3,7,10,5,8,9]
+arr = [6,1,4,11,2,0,3,7,10,5,8,9,13,15,12,14,16]
 k = 6
-ans = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+ans = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,15,16]
 assert sort_k_messed_array1(arr, k) == ans
 assert sort_k_messed_array2(arr, k) == ans
+assert sort_k_messed_array(arr, k) == ans
+
+print('all tests passed.')
