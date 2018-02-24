@@ -76,16 +76,19 @@ def BFS(graph, start):
     queue = deque()
     queue.append(start)
     explored = []
-
+    visited = [start]
     while queue:
         node = queue.popleft()
-        if node not in explored:
-            neighbors = graph[node]
-            for neighbor in neighbors:
+
+        neighbors = graph[node]
+        for neighbor in neighbors:
+            if neighbor not in visited:
                 queue.append(neighbor)
-            explored.append(node)
+                visited.append(neighbor)
+
+        explored.append(node)
     return explored
-    
+
 print(BFS(graph, 'A'))
 
 def BFS_shortest_path(graph, start, goal):
@@ -102,21 +105,23 @@ def BFS_shortest_path(graph, start, goal):
     queue = deque() # stores path instead of node
     queue.append([start])
     explored = []
+    visited = [start]
 
     while queue:
         path = queue.popleft()
         node = path[-1]
 
-        if node not in explored:
-            neighbors = graph[node]
-            for neighbor in neighbors:
+        neighbors = graph[node]
+        for neighbor in neighbors:
+            if neighbor not in visited:
                 new_path = path[:]
                 new_path.append(neighbor)
                 queue.append(new_path)
+                visited.append(neighbor)
 
                 if neighbor == goal:
                     return new_path
-            explored.append(node)
+        explored.append(node)
     return "sorry, no path found"
 
 print(BFS_shortest_path(graph, 'G', 'D') )
