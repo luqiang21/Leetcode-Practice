@@ -60,7 +60,7 @@ class BinarySearchTree:
     if inputNode.right != None:
       return self.find_min_key_within_tree(inputNode.right)
 
-    ancestor = inputNode.right
+    ancestor = inputNode.parent
     child = inputNode
 
      # travel up using the parent pointer until you see
@@ -72,9 +72,14 @@ class BinarySearchTree:
     return ancestor
 
     '''complexity analysis
-    Time Complexity: in both cases where either inputNode has a right child or doesn’t have one, we are visiting only O(H) number of nodes, where H is the height of the BST. For a balanced BST, since H = log(N), where N is the number of nodes in the BST, the time complexity is O(log(N)). For an unbalanced BST, the time complexity is O(N).
+    Time Complexity: in both cases where either inputNode has a right child or
+    doesn’t have one, we are visiting only O(H) number of nodes, where H is the
+    height of the BST. For a balanced BST, since H = log(N), where N is the number
+    of nodes in the BST, the time complexity is O(log(N)). For an unbalanced BST,
+    the time complexity is O(N).
 
-Space Complexity: throughout the entire algorithm we used only a constant amount of space, hence the space complexity is O(1).
+    Space Complexity: throughout the entire algorithm we used only a constant amount
+    of space, hence the space complexity is O(1).
     '''
   # Given a binary search tree and a number, inserts a
   # new node with the given number in the correct place
@@ -142,7 +147,7 @@ bst.insert(11);
 bst.insert(14);
 
 # Get a reference to the node whose key is 9
-test = bst.getNodeByKey(12)
+test = bst.getNodeByKey(9)
 
 # Find the in order successor of test
 succ = bst.find_in_order_successor1(test)
