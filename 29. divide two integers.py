@@ -4,8 +4,10 @@ Divide two integers without using multiplication, division and mod operator.
 If it is overflow, return MAX_INT.
 '''
 
+from tools import timing
 # Function to divide a by b and
 # return floor value it
+@timing
 def divide(dividend, divisor):
 
     # Calculate sign of divisor i.e.,
@@ -28,7 +30,7 @@ def divide(dividend, divisor):
 
     return sign * quotient
 
-
+@timing
 def divide1(dividend, divisor):
     sign = -1 if ((dividend < 0) ^  (divisor < 0)) else 1
 
@@ -63,14 +65,15 @@ a = 43
 b = -8
 print(divide(a, b))
 print(divide1(a, b))
-print()s
+print()
 
 a = 999
 b = 9
 print(divide(a, b))
 print(divide1(a, b))
+print()
 
 a = -2147483648
 b = -1
-print(divide(a, b))
+# print(divide(a, b))
 print(divide1(a, b))
