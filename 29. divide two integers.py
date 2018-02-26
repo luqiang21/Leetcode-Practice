@@ -45,8 +45,12 @@ def divide1(dividend, divisor):
             temp += divisor << i
             quotient += 1 << i #  or  quotient |= 1 << i
 
-    return sign * quotient
-
+    result = sign * quotient
+    if result > 2147483647:
+        result = 2147483647
+    if result < -2147483648:
+        result = -2147483648
+    return result
 
 # Driver code
 a = 10
@@ -63,5 +67,10 @@ print()s
 
 a = 999
 b = 9
+print(divide(a, b))
+print(divide1(a, b))
+
+a = -2147483648
+b = -1
 print(divide(a, b))
 print(divide1(a, b))
