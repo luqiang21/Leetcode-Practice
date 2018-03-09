@@ -44,16 +44,27 @@ class Solution(object):
                     up[i] = max(down[j] + 1, up[i])
 
                 if a[i] < a[j]:
-                    down[j] = max(up[j] + 1, up[i])
+                    down[i] = max(up[j] + 1, up[i])
 
-            bestLength = max(up[i], down[i])
-
+            # bestLength = max(up[i], down[i], bestLength)
+        bestLength = max(up[-1], down[-1])
+        # print(up)
+        # print(down)
         return bestLength
 
 
 
-nums = [ 10, 22, 9, 33, 49, 50, 31, 60 ]
+nums = [ 10, 22, 9, 33, 49, 50, 31, 60, 70 ]
 ans = 6
 sol = Solution()
 assert sol.lzzs(nums) == ans, (sol.lzzs(nums),  ans)
+
+nums = [1, 4, 5]
+ans = 2
+assert sol.lzzs(nums) == ans, (sol.lzzs(nums),  ans)
+
+nums = [70, 55, 13, 2, 99, 2, 80, 80, 80, 80, 100, 19, 7, 5, 5, 5, 1000, 32, 32]
+ans = 8
+assert sol.lzzs(nums) == ans, (sol.lzzs(nums),  ans)
+
 print('test passed')
