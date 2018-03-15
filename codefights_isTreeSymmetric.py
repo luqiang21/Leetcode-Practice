@@ -115,6 +115,11 @@ def inorder(t, res):
     if t.right:
         inorder(t.right, res)
 
+def inorder1(t):
+    if t:
+        return inorder(t.left)+[t.value]+inorder(t.right)
+    return []
+
 def isTreeSymmetric(t):
     if not t:
         return True
