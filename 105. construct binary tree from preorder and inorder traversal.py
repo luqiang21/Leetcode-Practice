@@ -29,6 +29,7 @@ class TreeNode:
         self.right = None
 
 class Solution:
+    # recursive
     @timing
     def buildTree(self, preorder, inorder):
         """
@@ -47,8 +48,47 @@ class Solution:
 
         return root
 
+
+    # iterative way
+    @timing
+    # iterative https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/34555/The-iterative-solution-is-easier-than-you-think!
+    def buildTree1(self, preorder, inorder):
+        if not preorder:
+            return None
+        dic = {}
+        stack = []
+        for i, num in enumerate(inorder):
+            dic[num] = i
+        root = TreeNode(preorder[0])
+        stack.append(root)
+
+        for i in range(1,len(preorder)):
+            node = TreeNode(preorder[i])
+
+            if dic[node.val] < dic[stack[-1].val]:
+                # the new node is on the left of the last node,
+                # so it must be its left child (that's the way preorder works)
+                stack[-1].left = node
+            else:
+                # the new node is on the right of the last node,
+                # so it must be the right child of either the last node
+                # or one of the last node's ancestors.
+                # pop the stack until we either run out of ancestors
+                # or the node at the top of the stack is to the right of the new node
+                parent = None
+                while len(stack) != 0 and dic[node.val] > dic[stack[-1].val]:
+                    parent = stack.pop()
+                parent.right = node
+            stack.append(node)
+        return root
+
+
 preorder = [3,9,20,15,7]
 inorder = [9,3,15,20,7]
 sol = Solution()
 root = sol.buildTree(preorder, inorder)
+print(root.val, root.left.val, root.right.val)
+preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+root = sol.buildTree1(preorder, inorder)
 print(root.val, root.left.val, root.right.val)
