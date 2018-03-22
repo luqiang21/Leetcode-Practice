@@ -37,6 +37,17 @@ Constraints:
 
 """
 from tools import timing
+# @timing
+def deletion_distance(str1, str2):
+  dist = 0
+  if str1 == "" or str2 == "":
+    return len(str1) or len(str2)
+
+  if str1[0] == str2[0]:
+    dist = deletion_distance(str1[1:], str2[1:])
+  else:
+    dist = min(deletion_distance(str1, str2[1:]), deletion_distance(str1[1:], str2)) + 1
+  return dist
 
 @timing
 def deletion_distance1(str1, str2):
@@ -58,19 +69,34 @@ def deletion_distance1(str1, str2):
 
   return mem[n][m]
 
-@timing
-def deletion_distance(str1, str2):
-  dist = 0
-  if str1 == "" or str2 == "":
-    return len(str1) or len(str2)
 
-  if str1[0] == str2[0]:
-    dist = deletion_distance(str1[1:], str2[1:])
-  else:
-    dist = min(deletion_distance(str1, str2[1:]), deletion_distance(str1[1:], str2)) + 1
-  return dist
+
+# reduce space to O(min(n,m))
+@timing
+def deletion_distance2(str1, str2):
+  if len(str1) < len(str2):
+    str1, str2 = str2, str1
+
+  prev_memo = [0]*(len(str2) + 1)
+  cur_memo = [0]*(len(str2) + 1)
+
+  for i in range(len(str1)+1):
+    for j in range(len(str2)+1):
+      if i == 0:
+        cur_memo[j] = j
+      elif j == 0:
+        cur_memo[j] = i
+      elif str1[i-1] == str2[j-1]:
+        cur_memo[j] = prev_memo[j-1]
+      else:
+        cur_memo[j] = min(prev_memo[j], cur_memo[j-1]) + 1
+    prev_memo = cur_memo
+    cur_memo = [0]*(len(str2) + 1)
+  return prev_memo[len(str2)]
+
 
 str1, str2 = "some", "thing"
 ans = 9
-assert deletion_distance1(str1, str2) == ans
 assert deletion_distance(str1, str2) == ans
+assert deletion_distance1(str1, str2) == ans
+assert deletion_distance2(str1, str2) == ans
