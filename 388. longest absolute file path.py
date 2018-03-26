@@ -27,7 +27,8 @@ a file within our file system. For example, in the second example above, the lon
 absolute path is "dir/subdir2/subsubdir2/file2.ext", and its length is 32 (not including the double quotes).
 
 Given a string representing the file system in the above format, return the length
-of the longest absolute path to file in the abstracted file system. If there is no file in the system, return 0.
+of the longest absolute path to file in the abstracted file system.
+If there is no file in the system, return 0.
 
 Note:
 The name of a file contains at least a . and an extension.
@@ -62,8 +63,8 @@ class Solution:
 
             stack.append(length)
 
-            # if "." in file: # commented to deal with all empty folders case
-            res = max(res, length - 1)
+            if "." in file:
+                res = max(res, length - 1)
         return res
 sol = Solution()
 input = "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext"
