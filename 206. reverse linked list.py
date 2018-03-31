@@ -24,7 +24,7 @@ class Solution:
         return last
 
     # recursive way
-    def reverseList(self, head):
+    def reverseList2(self, head):
         """
         :type head: ListNode
         :rtype: ListNode
@@ -48,3 +48,20 @@ class Solution:
             current = temp
 
             return self.reverse(current, last)
+
+
+    # recursive way, but go to the final node first, then get back
+    def reverseList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        return self.helper(head, None)
+
+    def helper(self, current, last):
+        if current:
+            res = self.helper(current.next, current)
+            current.next = last # change next
+        else:
+            res = last # only assign value for res here
+        return res
