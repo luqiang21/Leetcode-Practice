@@ -33,10 +33,12 @@ class Solution:
         return res
 
     def backtracking(self, res, temp, nums, start):
-        if temp not in res:
-            res.append(temp[:])
+        # if temp not in res:
+        res.append(temp[:])
 
         for i in range(start, len(nums)):
+            if i > start and nums[i] == nums[i-1]:
+                continue
             temp.append(nums[i])
             self.backtracking(res, temp, nums, i + 1)
             temp.pop()
