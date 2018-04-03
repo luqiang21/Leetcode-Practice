@@ -41,8 +41,34 @@ class Solution:
                 temp.append(num)
                 self.backtracking(candidates, target - num, res, temp, i)
                 temp.pop()
+    # avoid unnecessary steps
+    @timing
+    def combinationSum1(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        temp = []
+        self.backtracking1(sorted(candidates), target, res, temp, 0)
+        return res
+
+    def backtracking1(self, candidates, target, res, temp, start):
+        if target == 0:
+            res.append(temp[:])
+        else:
+            for i in range(start, len(candidates)):
+                num = candidates[i]
+                # if num is greater than target, no need to continue search since candidates are sorted.
+                if num > target:
+                    break
+                temp.append(num)
+                self.backtracking1(candidates, target - num, res, temp, i)
+                temp.pop()  
 
 candidates = [2, 3, 6, 7]
 target = 7
 ans = [[2, 2, 3], [7]]
 assert Solution().combinationSum(candidates, target) == ans
+assert Solution().combinationSum1(candidates, target) == ans
