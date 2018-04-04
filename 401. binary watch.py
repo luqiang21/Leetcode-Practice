@@ -48,11 +48,12 @@ class Solution:
             else:
                 res.append(str(hour) + ":" + str(minute))
         elif n > 0 and idx < len(leds):
+            # led on idx is on
             if idx < 4 and hour + leds[idx] < 12:
                 self.backtrack(res, leds, hour + leds[idx], minute, idx + 1, n - 1)
             elif idx > 3 and minute + leds[idx] < 60:
                 self.backtrack(res, leds, hour, minute + leds[idx], idx + 1, n - 1)
-
+            # led on idx is off
             self.backtrack(res, leds, hour, minute, idx + 1, n)
 
     @timing
