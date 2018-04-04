@@ -46,6 +46,8 @@ class Solution:
             return
 
         for i in range(idx, 10):
+            if i > n:
+                continue
             temp.append(i)
             self.backtracking(res, temp, n - i, k, i + 1)
             temp.pop()
