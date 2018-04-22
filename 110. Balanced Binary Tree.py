@@ -54,7 +54,7 @@ class Solution:
             return False
 
         # make sure subtree is balanced
-        if self.isBalanced(root.left) and self.isBalanced(root.right):
+        if self.isBalanced1(root.left) and self.isBalanced1(root.right):
             return True
 
         return False
@@ -80,5 +80,34 @@ class Solution:
         return max(left_depth, right_depth) + 1, left_bal and right_bal and cur_bal
 
     @timing
-    def isBalanced(self, root):
+    def isBalanced2(self, root):
         return self.depth_balance(root)[1]
+
+    def dfsHeight(self, root):
+        if root is None:
+            return 0
+        leftHeight = self.dfsHeight(root.left)
+        if leftHeight == -1:
+            return -1
+        rightHeight = self.dfsHeight(root.right)
+        if rightHeight == -1:
+            return -1
+
+        if abs(leftHeight - rightHeight) > 1:
+            return -1
+
+        return max(leftHeight, rightHeight) + 1
+    @timing
+    def isBalanced(self, root):
+        return self.dfsHeight(root) != -1
+
+
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+root.right.left = TreeNode(15)
+root.right.right = TreeNode(7)
+
+assert Solution().isBalanced1(root) == True
+assert Solution().isBalanced2(root) == True
+assert Solution().isBalanced(root) == True
