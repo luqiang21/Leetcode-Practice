@@ -13,7 +13,7 @@ from tools import timing
 
 class Solution:
     @timing
-    def topKFrequent(self, nums, k):
+    def topKFrequent1(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
@@ -30,8 +30,19 @@ class Solution:
                     ans.append(key)
                     break
         return ans
+    @timing
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        from collections import Counter
+        return [x[0] for x in Counter(nums).most_common(k)]
 
 nums = [1,1,1,2,2,3]
 k = 2
 ans = [1,2]
+assert Solution().topKFrequent1(nums, k) == ans
+
 assert Solution().topKFrequent(nums, k) == ans
