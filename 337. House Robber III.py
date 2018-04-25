@@ -76,6 +76,26 @@ class Solution:
         mem[root] = max(val, self.rob(root.left) + self.rob(root.right))
         return max(val, self.rob(root.left) + self.rob(root.right))
 
+    @timing
+    def rob2(self, root):
+        if not root:
+            return 0
+        return max(self.rob_helper(root))
+
+    def rob_helper(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        # return two elements, (not include root.val, include root.val)
+        if not root:
+            return (0, 0)
+
+        left = self.rob_helper(root.left)
+        right = self.rob_helper(root.right)
+
+        return max(left) + max(right), root.val + left[0] + right[0]
+
 root = TreeNode(3)
 root.left = TreeNode(4)
 root.right = TreeNode(5)
@@ -85,3 +105,4 @@ root.right.right = TreeNode(1)
 
 assert Solution().rob1(root) == 9
 assert Solution().rob(root) == 9
+assert Solution().rob2(root) == 9
