@@ -66,8 +66,29 @@ class Solution:
             perms = new_perms
         return perms
 
+     # corresponding recursive way
+    @timing
+    def permute2(self, nums):
+        if len(nums) <= 1:
+            return [nums]
+
+        all_chars_except_last = nums[:-1]
+        last = nums[-1]
+        perms_all_chars_except_last = self.permute2(all_chars_except_last)
+
+        perms = []
+        for perm in perms_all_chars_except_last:
+            for pos in range(len(all_chars_except_last)+1):
+                perms.append(
+                perm[:pos]
+                + [last]
+                + perm[pos:]
+                )
+        return perms
+
 
 
 sol = Solution()
 assert sol.permute([1,2,3]) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 assert sol.permute1([1,2,3]) == [[3,2,1],[2,3,1],[2,1,3],[3,1,2],[1,3,2],[1,2,3]]
+assert sol.permute2([1,2,3]) == [[3,2,1],[2,3,1],[2,1,3],[3,1,2],[1,3,2],[1,2,3]]
