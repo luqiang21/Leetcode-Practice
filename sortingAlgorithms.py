@@ -13,7 +13,7 @@ This algorithm is called selection sort because it repeatedly selects the
 next-smallest element and swaps it into place.
 
 """
-
+from tools import timing
 
 def index_of_minimum(array, startIndex):
     '''find the minimum index of subarray array[startIndex:]'''
@@ -135,7 +135,7 @@ def merge_sort(array, p, r):
         merge_sort(array, q+1, r)
         merge(array, p, q, r)
 
-
+@timing
 def merge_sort2(arrayList):
     """ Not using helper function, more clear """
     if len(arrayList) > 1:
@@ -165,6 +165,30 @@ def merge_sort2(arrayList):
             arrayList[k] = rightHalf[j]
             j += 1
             k += 1
+@timing
+def merge_sort3(arrayList):
+    """ Not using helper function, more clear """
+    if len(arrayList) > 1:
+        mid = len(arrayList) // 2
+        leftHalf = arrayList[:mid]
+        rightHalf = arrayList[mid:]
+
+        merge_sort3(leftHalf)
+        merge_sort3(rightHalf)
+
+        i, j, k = 0, 0, 0
+        while i < len(leftHalf) and j < len(rightHalf):
+            is_left_done = i >= len(leftHalf)
+            is_right_done = j >= len(rightHalf)
+
+            if (not is_left_done) and (is_right_done or leftHalf[i] <= rightHalf[j]):
+                arrayList[k] = leftHalf[i]
+                i += 1
+            else:
+                arrayList[k] = rightHalf[j]
+                j += 1
+            k += 1
+
 
 
 print("Merge Sort.")
@@ -191,6 +215,16 @@ print('before sorting,', array)
 merge_sort2(array)
 print('after sorting,', array)
 
+rray = [6, 3, 8, 2, 7, 1]
+print('before sorting,', array)
+merge_sort3(array)
+print('after sorting,', array)
+
+
+array = [4, 2, 1, 3]
+print('before sorting,', array)
+merge_sort3(array)
+print('after sorting,', array)
 
 """
 Quick sort
