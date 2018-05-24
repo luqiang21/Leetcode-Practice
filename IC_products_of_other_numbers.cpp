@@ -4,6 +4,10 @@ using namespace std;
 
 vector<int> int_list = {1, 7, 3, 4};
 vector<int> get_products_of_all_ints_except_at_index(vector<int> int_list) {
+  if (int_list.size() < 2) {
+          throw invalid_argument("Getting the product of numbers at"
+              " other indices requires at least 2 numbers");
+      }
     vector<int> res = int_list;
 
     for(int i = 1; i < int_list.size(); ++i) {
