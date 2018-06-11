@@ -29,7 +29,7 @@ bool bracketValidator(const string& sent) {
             brackets.push(c);
         }
         else if(c == ')' || c == '}' || c == ']') {
-            if(brackets.top() == pairs[c]) brackets.pop();
+            if(brackets.size() > 0 && brackets.top() == pairs[c]) brackets.pop();
             else return false;
         }
     }
