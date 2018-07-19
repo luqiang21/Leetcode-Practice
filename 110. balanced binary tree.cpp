@@ -34,19 +34,23 @@ public:
 };
 
 int main() {
-    // how to create a pointer to new TreeNode????
-    TreeNode root = TreeNode(3);
-    TreeNode n9 = TreeNode(9);
-    TreeNode n20 = TreeNode(20);
-    TreeNode n15 = TreeNode(15);
-    TreeNode n7 = TreeNode(7);
-    root.left = &n9;
-    root.right = &n20;
-    n20.left = &n15;
-    n20.right = &n7;
+    TreeNode* root = new TreeNode(3);
+    TreeNode* n9 = new TreeNode(9);
+    TreeNode* n20 = new TreeNode(20);
+    TreeNode* n15 = new TreeNode(15);
+    TreeNode* n7 = new TreeNode(7);
+    root -> left = n9;
+    root -> right = n20;
+    n20 -> left = n15;
+    n20 -> right = n7;
 
     Solution sol;
-    assert(sol.isBalanced(&root));
+    assert(sol.isBalanced(root));
 
     cout << "test passed" << endl;
+    delete root;
+    delete n9;
+    delete n20;
+    delete n15;
+    delete n7;
 }
