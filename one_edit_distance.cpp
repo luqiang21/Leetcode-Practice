@@ -57,4 +57,6 @@ int main() {
     s2 = "abc";
     sol.isEditDistanceOne(s1, s2) ? cout << "Yes" : cout << "No";
     cout << endl;
+
+    return 0;
 }
