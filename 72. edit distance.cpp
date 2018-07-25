@@ -9,6 +9,7 @@ class Solution {
     int min(int x, int y, int z) {
         return std::min(std::min(x, y), z);
     }
+
     int edit_distance(string s1, string s2, int m, int n) {
         // if first string is empty, only option is insert all chars in s2.
         if (m == 0) return n;
