@@ -12,7 +12,11 @@ t = threading.Thread(target = putting_thread, args = (q,), daemon = True)
 t.start()
 
 q.put(5)
+print("size:", q.qsize())
+
 print(q.get())
 print("first item got")
+
 print(q.get())
+print("size:", q.qsize())
 print("finished")
