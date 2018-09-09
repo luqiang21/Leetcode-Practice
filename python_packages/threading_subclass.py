@@ -26,7 +26,7 @@ for thread in threads:
 
 print("main thread exiting")
 
-
+# modify run()
 class MyThread(threading.Thread):
     def run(self):
         print("{} has started!".format(self.getName()))
@@ -42,8 +42,33 @@ def sleeper(n, name):
     time.sleep(n)
     print("{} has woken up from sleep \n".format(name))
 
+threads_list = []
 for i in range(4):
     t = MyThread(target = sleeper,
                  name = 'thread {}'.format(i+1),
                  args = (3, 'thread {}'.format(i+1)))
     t.start()
+    threads_list.append(t)
+
+for t in threads_list:
+    t.join()
+
+print("\n\n\n")
+# modify __init__ and keep original __init__
+class MyThread1(threading.Thread):
+    def __init__(self, number, style, *args, **kwargs):
+        super(MyThread1, self).__init__(*args, **kwargs)
+        self.number = number
+        self.style = style
+
+    def run(self, *args, **kwargs):
+        print("thread starting")
+        super(MyThread1, self).run(*args, **kwargs)
+        print("thread has ended")
+
+def sleeper(num, style):
+    print("we are sleeping for {} seconds as {}".format(num, style))
+    time.sleep(num)
+
+t = MyThread1(3, 'yellow', target = sleeper, args = [3, 'yellow'])
+t.start()
