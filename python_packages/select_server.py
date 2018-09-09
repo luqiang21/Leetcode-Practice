@@ -28,7 +28,7 @@ for i in range(numPortSocks):
 # event loop: listen and multiplex until server process killed
 print("select-server loop starting")
 while True:
-    print(readsocks)
+    # print(readsocks)
     readables, writeables, exceptions = select(readsocks, writesocks, [])
     for sockobj in readables:
         if sockobj in mainsocks:        # for ready input sockets
