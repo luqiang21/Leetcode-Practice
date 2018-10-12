@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+
+    <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <edge id=":0_0" function="internal">
+        <lane id=":0_0_0" index="0" speed="40.00" length="7.85" shape="491.75,511.35 491.56,508.55 490.98,506.55 490.01,505.35 488.65,504.95"/>
+    </edge>
+
+
+    <edge id="3i" from="2" to="0" priority="1">
+        <lane id="3i_0" index="0" speed="40.00" length="488.65" shape="1000.00,508.25 511.35,508.25"/>
+        <lane id="3i_1" index="1" speed="40.00" length="488.65" shape="1000.00,504.95 511.35,504.95"/>
+        <lane id="3i_2" index="2" speed="40.00" length="488.65" shape="1000.00,501.65 511.35,501.65"/>
+    </edge>
+
+
+    <connection from="4i" to="3o" fromLane="2" toLane="1" via=":0_3_0" dir="l" state="M"/>
+    <connection from="4o" to="4i" fromLane="1" toLane="2" via=":4_0_0" dir="t" state="M"/>
+
+
+    <connection from=":4_0" to="4i" fromLane="0" toLane="2" dir="s" state="M"/>
+
+</net>
