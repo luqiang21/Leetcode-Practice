@@ -73,8 +73,9 @@ def maximalSquare(matrix):
     last_row = [0]*(m+1)
 
     maxlen = 0
+    current_row = [0]*(m+1)
     for i in range(1, n+1):
-        current_row = [0]*(m+1)
+        current_row[0] = 0
         for j in range(1, m+1):
             if matrix[i-1][j-1] == '1':
                 current_row[j] = min(last_row[j], last_row[j-1], current_row[j-1]) + 1
