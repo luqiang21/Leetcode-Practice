@@ -7,11 +7,11 @@ The input list_of_ints will always have at least three integers.
 from tools import timing
 @timing
 def highest_product_of_3(list_of_ints):
-    highest_so_far = 0
     highest_product_of_2 = list_of_ints[0] * list_of_ints[1]
     lowest_product_of_2 = list_of_ints[0] * list_of_ints[1]
     highest_num = max(list_of_ints[:2])
     lowest_num = min(list_of_ints[:2])
+    highest_so_far = highest_product_of_2 * list_of_ints[2]
 
     for i in range(2, len(list_of_ints)):
         # update highest_so_far
@@ -50,3 +50,5 @@ list_of_ints = [1, 10, -5, 1, -100]
 assert highest_product_of_3(list_of_ints) == 5000
 a = [-10,-10,1,3,2]
 assert highest_product_of_3(a) == 300
+a = [-1, -2, -3]
+assert highest_product_of_3(a) == -6
