@@ -14,6 +14,7 @@
 // Follow up:
 // What if the inputs contain unicode characters? How would you adapt your solution to such case?
 #include <iostream>
+#include <vector>
 #include <unordered_map>
 using namespace std;
 
@@ -109,13 +110,39 @@ public:
         return true;
     }   
 };
+class Solution3 {
+public:
+
+    bool isAnagram(string s, string t) {
+        if (s.size() != t.size()) return false;
+
+        vector<int> ascii(26, 0);
+        for (auto & c : s) {
+            ascii[c-97] ++;
+        }
+        
+        for (auto & c : t) {
+            ascii[c-97] --;
+        }
+        
+        for (auto & cnt : ascii)
+        {
+            if (cnt != 0) return false;
+        }
+        
+        return true;
+    }   
+};
+
 int main() {
 	Solution sol;
 	Solution1 sol1;
 	Solution1 sol2;
+	Solution1 sol3;
 	string s = "anagram", t = "nagaram";
 	cout << boolalpha << sol.isAnagram(s, t) << endl;
 	cout << boolalpha << sol1.isAnagram(s, t) << endl;
 	cout << boolalpha << sol2.isAnagram(s, t) << endl;
+	cout << boolalpha << sol3.isAnagram(s, t) << endl;
 }
 
