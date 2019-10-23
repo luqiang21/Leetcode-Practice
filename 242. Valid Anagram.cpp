@@ -87,12 +87,35 @@ public:
         return true;
     }
 };
+class Solution2 {
+public:
 
+    bool isAnagram(string s, string t) {
+        if (s.size() != t.size()) return false;
+        unordered_map<char, int> map1;
+        for (auto & c : s) {
+            map1[c] ++;
+        }
+        
+        for (auto & c : t) {
+            map1[c] --;
+        }
+        
+        for (auto & element : map1)
+        {
+            if (element.second != 0) return false;
+        }
+        
+        return true;
+    }   
+};
 int main() {
 	Solution sol;
 	Solution1 sol1;
+	Solution1 sol2;
 	string s = "anagram", t = "nagaram";
 	cout << boolalpha << sol.isAnagram(s, t) << endl;
 	cout << boolalpha << sol1.isAnagram(s, t) << endl;
+	cout << boolalpha << sol2.isAnagram(s, t) << endl;
 }
 
