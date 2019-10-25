@@ -52,7 +52,7 @@ public:
         }
     }
 
-    int findKthLargest(vector<int>& nums, int k) {
+    int findKthLargestHeapSort(vector<int>& nums, int k) {
         build_max_heap(nums);
 
         for(int i = 0; i < k; i++) {
@@ -62,7 +62,23 @@ public:
         }
         return nums[heap_size];
     }
-
+	int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, greater<int> > min_heap;
+        
+        for (int i = 0; i < nums.size(); ++i) {
+            if (min_heap.size() < k) {
+                min_heap.push(nums[i]);
+            }
+            else {
+                if (nums[i] > min_heap.top()) {
+                    min_heap.pop();
+                    min_heap.push(nums[i]);
+                }
+            }
+        }
+        
+        return min_heap.top();
+    }
 };
 
 int main() {
@@ -71,6 +87,7 @@ int main() {
     int k = 4;
 
     assert(sol.findKthLargest2(nums, k) == 4);
+    assert(sol.findKthLargestHeapSort(nums, k) == 4);
     assert(sol.findKthLargest(nums, k) == 4);
 
     cout << "tests passed!" << endl;
