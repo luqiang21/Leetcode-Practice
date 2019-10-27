@@ -13,9 +13,12 @@ A solution set is:
 ]
 
 """
+from tools import timing
+
 
 class Solution(object):
     # time limit exceeded using brute force
+    @timing
     def threeSum1(self, nums):
         """
         :type nums: List[int]
@@ -50,7 +53,7 @@ class Solution(object):
     we find a pair with sum “-arr[i]”. This problem reduces to pairs sum and
     can be solved in O(n) time using hashing.
 
-    Run a loop from i=0 to n-2
+    Run a loop from i=0 to n-3
       Create an empty hash table
       Run inner loop from j=i+1 to n-1
           If -(arr[i] + arr[j]) is present in hash table
@@ -58,12 +61,14 @@ class Solution(object):
           Else
              Insert arr[j] in hash table.
     '''
+
+    @timing
     def threeSum2(self, nums):
 
         found = False
         answer = []
         n = len(nums)
-        for i in range(n-1):
+        for i in range(n-2):
             # find all pairs with sum equals -nums[i]
             s = set()
             for j in range(i+1, n):
@@ -94,13 +99,14 @@ class Solution(object):
     6. If sum is greater than zero then r--
     7. If not exist in array then print not found.
     '''
+    @timing
     def threeSum3(self, nums):
 
         # sort array elements
         nums.sort()
         answer = []
         n = len(nums)
-        for i in range(0, n-1):
+        for i in range(0, n-2):
 
             # initialize left and right
             l = i + 1
@@ -110,8 +116,8 @@ class Solution(object):
 
                 if (x + nums[l] + nums[r] == 0):
                     # print elements if it's sum is zero
-                    if sorted([x, nums[l], nums[r]]) not in answer:
-                        answer.append(sorted([x, nums[l], nums[r]]))
+                    if [x, nums[l], nums[r]] not in answer:
+                        answer.append([x, nums[l], nums[r]])
                     l += 1
                     r -= 1
 
