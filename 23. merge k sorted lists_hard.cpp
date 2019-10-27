@@ -7,6 +7,10 @@ struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(NULL) {}
+	~ListNode()
+	{
+		delete next;
+	}
 };
 
 class MyComparison {
@@ -59,13 +63,15 @@ int main() {
 	b -> next = new ListNode(3);
 	b -> next -> next = new ListNode(4);
 	c -> next = new ListNode(6);
-
+	
 	vector<ListNode*> lists = {a, b, c};
 	ListNode* ans = Solution().mergeKLists(lists);
 	while (ans) {
 		cout << ans -> val << endl;
 		ans = ans -> next;
 	}
+
+	delete a;
 	return 0;
 }
 
