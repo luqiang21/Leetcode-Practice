@@ -50,7 +50,7 @@ public:
     }
 };
 
-class Solution {
+class SolutionIterative1 {
 public:
     bool isSymmetric(TreeNode* root) {
         if (root == NULL) return true;
@@ -78,6 +78,45 @@ public:
     }
 };
 
+class Solution {
+public:
+    bool isPalindrome(vector<TreeNode*> level) {
+        if (level.size() <= 1) return true;
+
+        int n = level.size();
+        for (int i = 0; i < n/2; ++i) {
+            if (level.at(i) == NULL && level.at(n - 1 - i) == NULL) continue;
+            if (level.at(i) == NULL || level.at(n - 1 - i) == NULL) return false;
+
+            if (level.at(i) -> val != level.at(n - 1 - i) -> val) return false;
+        }
+        return true;
+    }
+    bool isSymmetric(TreeNode* root) {
+        if (root == NULL) return true;
+
+        vector<TreeNode*> previousLevel;
+        previousLevel.push_back(root);
+
+        while (!previousLevel.empty()) {
+            vector<TreeNode*> curLevel;
+
+            for (TreeNode* node : previousLevel) {
+                if (node != NULL) {
+                    curLevel.push_back(node -> left);
+                    curLevel.push_back(node -> right);
+                }
+            }
+
+                if (!isPalindrome(curLevel)) return false;
+                previousLevel = curLevel;
+
+        }
+
+        return true;
+    }
+};
+
 int main() {
 	TreeNode* root1 = new TreeNode(1);
 	root1 -> left = new TreeNode(2);
@@ -95,6 +134,8 @@ int main() {
 
 	assert(SolutionRecursive().isSymmetric(root1) == true);
 	assert(SolutionRecursive().isSymmetric(root2) == false);
+	assert(SolutionIterative1().isSymmetric(root1) == true);
+	assert(SolutionIterative1().isSymmetric(root2) == false);
 	assert(Solution().isSymmetric(root1) == true);
 	assert(Solution().isSymmetric(root2) == false);
 	cout << "All tests passed!" << endl;
