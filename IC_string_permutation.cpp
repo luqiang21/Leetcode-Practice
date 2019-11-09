@@ -47,7 +47,9 @@ void helper(string input_string, unordered_set<string> &res, string &temp) {
     for(auto c: input_string) {
         if(temp.find(c) != string::npos) continue;
 
-        temp.append(1, c);
+        // temp.append(1, c);
+		// temp.push_back(c);
+		temp += c;
         helper(input_string, res, temp);
         temp.pop_back();
     }
