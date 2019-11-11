@@ -34,6 +34,17 @@ def knapSack(W, wt, val, n):
 
     return K[n][W]
 
+@timing
+def knapSackOneList(W, wt, val, n):
+    dp = [0 for _ in range(W+1)]
+    # Build table K[][] in bottom up manner
+    for i in range(1, n):
+        for w in range(W, -1, -1):
+            if (wt[i] <= w):
+                dp[w] = max(dp[w], dp[w-wt[i]] + val[i])
+            
+    return dp[-1]
+
 
 
 # To test above function
@@ -43,3 +54,4 @@ W = 50
 n = len(val)
 print(knapSack1(W , wt , val , n))
 print(knapSack(W , wt , val , n))
+print(knapSackOneList(W , wt , val , n))
