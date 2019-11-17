@@ -48,6 +48,29 @@ public:
         return ans;
     }
 };
+class SolutionBackward {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> ans(nums1.size(), -1);
+
+        stack<int> s; // keep a stack with large numbers at bottom 
+        unordered_map<int, int> map; // map from number x to its next greater number
+        for (int i = nums2.size() - 1; i >= 0; --i) {
+			int num = nums2[i];
+            while (!s.empty() && s.top() <= num) {
+                s.pop();
+            }
+			map[num] = s.empty() ? -1 : s.top();
+            s.push(num);
+        }
+
+        for (int i = 0; i < nums1.size(); ++i) {
+            if (map.count(nums1[i])) ans[i] = map[nums1[i]];
+        }
+        return ans;
+    }
+};
+
 
 int main() {
 	//	Example 1:
@@ -66,10 +89,12 @@ int main() {
 	vector<int> nums1 = {4, 1, 2}, nums2 = {1, 3, 4, 2}, ans = {-1, 3, -1};
 	assert(SolutionBruteForce().nextGreaterElement(nums1, nums2) == ans);
 	assert(Solution().nextGreaterElement(nums1, nums2) == ans);
+	assert(SolutionBackward().nextGreaterElement(nums1, nums2) == ans);
 
 	nums1 = {2, 4}, nums2 = {1, 2, 3, 4}, ans = {3, -1};
 	assert(SolutionBruteForce().nextGreaterElement(nums1, nums2) == ans);
 	assert(Solution().nextGreaterElement(nums1, nums2) == ans);
+	assert(SolutionBackward().nextGreaterElement(nums1, nums2) == ans);
 	cout << "Tests passed." << endl;
 	return 0;
 }
