@@ -1,6 +1,8 @@
 #include <unordered_map>
 #include <vector>
 #include <iostream>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 class Solution {
@@ -39,7 +41,7 @@ public:
     }
 private:
 	// look for left bound using binary search
-	int leftBound(vector<int> arr, int target) {
+	int leftBound(vector<int>& arr, int target) {
 		int low = 0, high = arr.size();
 		while (low < high) {
 			int mid = (low + high) / 2;
@@ -60,6 +62,7 @@ private:
 	}
 };
 int main() {
+	auto start = high_resolution_clock::now(); 
 	string s = "abc", t = "ahbgdc";
 	assert(Solution().isSubsequence(s, t) == true);
 	assert(SolutionBinary().isSubsequence(s, t) == true);
@@ -72,6 +75,10 @@ int main() {
 	vector<string> words = {"a", "bb", "acd", "ace"};
 	assert(SolutionBinary().numMatchingSubseq(S, words) == 3);
 	cout << "Tests passed!" << endl;
+	auto stop = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(stop - start);
+
+	cout << duration.count() << " ms" << endl; 
 	return 0;	
 
 }
