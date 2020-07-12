@@ -1,5 +1,4 @@
-/*
-// Definition for a Node.
+
 class Node {
 public:
     int val;
@@ -7,10 +6,33 @@ public:
     Node* next;
     Node* child;
 };
-*/
+
 
 class Solution {
 public:
+    // it is actually preoder dfs with child as left child, next as right child
+    Node* flatten(Node* head) {
+        if (head == NULL) return head;
+        
+        auto dummy = new Node();
+        flattenDfs(dummy, head);
+        
+        dummy -> next -> prev = NULL;
+        return dummy -> next;
+    }
+    
+    Node* flattenDfs(Node* prev, Node* cur) {
+        if (cur == NULL) return prev;
+        
+        cur -> prev = prev;
+        prev -> next = cur;
+        auto next = cur -> next;
+        auto tail = flattenDfs(cur, cur -> child);
+        cur -> child = NULL;
+        return flattenDfs(tail, next);
+    }
+    
+    
     Node* flattenRecNeat(Node* head, Node* rest=nullptr) {
         if (!head) return rest;
         
@@ -27,7 +49,7 @@ public:
         return head;
     }
     
-    Node* flatten(Node* head) {
+    Node* flattenIter(Node* head) {
         if (head == NULL) return head;
         
         stack<Node*> sta;
