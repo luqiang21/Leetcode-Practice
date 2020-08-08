@@ -39,20 +39,47 @@ struct TreeNode {
 };
 
 class Solution {
-    int helper(TreeNode* root, int sum) {
-        if (root == NULL) return 0;
-
-        int ans = 0;
-        if (sum == root -> val) ans = 1;
-
-
-        return ans + helper(root -> left, sum - root -> val) + helper(root -> right, sum - root -> val);
-    }
-
 public:
+    int pathSum1(TreeNode* root, int sum) {
+        if (root == nullptr) return 0;
+        int cnt = helper(root, sum);
+        
+        return cnt + pathSum(root -> left, sum) + pathSum(root -> right, sum);
+    }
+    
+private:
+    int helper(TreeNode* root, int sum) {
+        if (root == nullptr) return 0;
+        
+        sum -= root -> val;
+        
+        int cnt = (sum == 0 ? 1 : 0) + helper(root -> left, sum)
+            + helper(root -> right, sum);
+        return cnt;
+    }
+    
+public:
+    // use prefix sum
     int pathSum(TreeNode* root, int sum) {
-        if (root == NULL) return 0;
-        return helper(root, sum) + pathSum(root -> left, sum) + pathSum(root -> right, sum);
+        k = sum;
+        map[0] = 1;
+        preorder(root, 0);
+        return cnt;
+    }
+private:
+    int k;
+    int cnt = 0;
+    unordered_map<int, int> map;
+    void preorder(TreeNode* node, int curSum) {
+        if (node == nullptr) return;
+        
+        curSum += node -> val;
+        
+        cnt += map[curSum - k];
+        map[curSum] += 1;
+        preorder(node -> left, curSum);
+        preorder(node -> right, curSum);
+        map[curSum] -= 1; // remove current sum in order not to use it in parallel subtree processing
     }
 };
 
@@ -63,6 +90,7 @@ int main() {
     n1 -> left = new TreeNode(2);
 
     Solution sol;
+    cout << sol.pathSum1(n1, sum) << endl;
     cout << sol.pathSum(n1, sum) << endl;
 
     delete n1;
